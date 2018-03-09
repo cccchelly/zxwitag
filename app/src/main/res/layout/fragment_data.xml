@@ -4,9 +4,294 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <TextView
+    
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_10"
         android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_250">
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_5"
+            android:background="#90dd8d"
+            android:gravity="center_horizontal"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_marginTop="@dimen/dp_10"
+                android:src="@drawable/ic_light_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="光控模式"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/text_4d4d4d"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/dp_40"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="状态"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/text_4d4d4d"/>
+
+            <com.alex.witAg.view.EaseSwitchButton
+                android:layout_marginBottom="@dimen/dp_10"
+                android:id="@+id/sb_light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_5"
+            android:background="#90dd8d"
+            android:gravity="center_horizontal"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_marginTop="@dimen/dp_10"
+                android:src="@drawable/ic_heat_pipe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="光控模式"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/text_4d4d4d"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/dp_40"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="状态"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/text_4d4d4d"/>
+
+            <com.alex.witAg.view.EaseSwitchButton
+                android:layout_marginBottom="@dimen/dp_10"
+                android:id="@+id/sb_pipe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_5"
+            android:background="#90dd8d"
+            android:gravity="center_horizontal"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_marginTop="@dimen/dp_10"
+                android:src="@drawable/ic_bin_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="光控模式"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/text_4d4d4d"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/dp_40"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="状态"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/text_4d4d4d"/>
+
+            <com.alex.witAg.view.EaseSwitchButton
+                android:layout_marginBottom="@dimen/dp_10"
+                android:id="@+id/sb_bin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+        android:layout_marginLeft="@dimen/dp_5"
+        android:layout_marginRight="@dimen/dp_5"
+        android:background="#90dd8d"
+        android:gravity="center_horizontal"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="match_parent"
-        android:text="实时数据"
-        android:gravity="center"/>
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_marginTop="@dimen/dp_10"
+            android:src="@drawable/ic_insect_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="光控模式"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/text_4d4d4d"/>
+
+        <TextView
+            android:layout_marginTop="@dimen/dp_40"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="状态"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/text_4d4d4d"/>
+
+        <com.alex.witAg.view.EaseSwitchButton
+            android:layout_marginBottom="@dimen/dp_10"
+            android:id="@+id/sb_insect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_5"
+            android:background="#90dd8d"
+            android:gravity="center_horizontal"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_marginTop="@dimen/dp_10"
+                android:src="@drawable/ic_weather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="光控模式"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/text_4d4d4d"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/dp_40"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="状态"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/text_4d4d4d"/>
+
+            <com.alex.witAg.view.EaseSwitchButton
+                android:layout_marginBottom="@dimen/dp_10"
+                android:id="@+id/sb_weather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_10"
+            android:background="#90dd8d"
+            android:gravity="center_horizontal"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_marginTop="@dimen/dp_10"
+                android:src="@drawable/ic_gps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="光控模式"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/text_4d4d4d"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/dp_40"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="状态"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/text_4d4d4d"/>
+
+            <com.alex.witAg.view.EaseSwitchButton
+                android:layout_marginBottom="@dimen/dp_10"
+                android:id="@+id/sb_gps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_warning">
+
+        <TextView
+            android:layout_marginLeft="@dimen/dp_10"
+            android:gravity="center"
+            android:drawablePadding="@dimen/dp_5"
+            android:drawableLeft="@drawable/ic_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_14"
+            android:text="警告信息"
+            android:textColor="@color/text_4d4d4d"/>
+
+        <TextView
+            android:id="@+id/tv_warning"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:textSize="@dimen/sp_12"
+            android:text="暂无信息"
+            android:textColor="@color/text_4d4d4d"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+        
+        <TextView
+            android:id="@+id/tv_examine"
+            android:layout_marginRight="@dimen/dp_10"
+            android:text="查看"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_14"
+            android:background="#29aae1"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_30"/>
+    </LinearLayout>
 </LinearLayout>
