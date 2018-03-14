@@ -48,11 +48,10 @@
 
     <style name="maintab_button">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:button">@null</item>
-        <item name="android:checked">false</item>
         <item name="android:gravity">center</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">@dimen/sp_14</item>
         <item name="android:textColor">@drawable/selector_home_rb_text</item>
         <!--<item name="android:drawablePadding">2dp</item>-->
     </style>

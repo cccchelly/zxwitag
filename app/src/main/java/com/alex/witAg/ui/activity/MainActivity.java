@@ -134,6 +134,10 @@ public class MainActivity extends BaseActivity<MainPresenter, IMainView> impleme
         mLeftTabView.setSelectPosition(currentTabPosition);
     }
 
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

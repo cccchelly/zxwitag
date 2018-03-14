@@ -4,9 +4,58 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <TextView
+    <LinearLayout
+        android:gravity="center"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="手动控制"
-        android:gravity="center"/>
+        android:layout_height="0dp">
+
+        <TextView
+            android:id="@+id/tv_rise"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:drawablePadding="@dimen/dp_5"
+            android:drawableTop="@drawable/ic_rise"
+            android:text="上升"
+            android:textColor="@color/text_4d4d4d"
+            android:textSize="@dimen/sp_16"/>
+
+        <TextView
+            android:id="@+id/tv_decline"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:drawablePadding="@dimen/dp_5"
+            android:drawableTop="@drawable/ic_decline"
+            android:text="下降"
+            android:textColor="@color/text_4d4d4d"
+            android:textSize="@dimen/sp_16"/>
+
+        <TextView
+            android:id="@+id/tv_take_photo"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:drawablePadding="@dimen/dp_5"
+            android:drawableTop="@drawable/ic_take_photo"
+            android:text="拍照"
+            android:textColor="@color/text_4d4d4d"
+            android:textSize="@dimen/sp_16"/>
+
+        <TextView
+            android:id="@+id/ic_reset"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:drawablePadding="@dimen/dp_5"
+            android:drawableTop="@drawable/ic_reset"
+            android:text="复位"
+            android:textColor="@color/text_4d4d4d"
+            android:textSize="@dimen/sp_16"/>
+    </LinearLayout>
 </LinearLayout>

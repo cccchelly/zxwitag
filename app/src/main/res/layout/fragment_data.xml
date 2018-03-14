@@ -70,7 +70,7 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="光控模式"
+                android:text="加热管"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/text_4d4d4d"/>
 
@@ -110,7 +110,7 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="光控模式"
+                android:text="仓位类型"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/text_4d4d4d"/>
 
@@ -150,7 +150,7 @@
             android:layout_marginTop="@dimen/dp_10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="光控模式"
+            android:text="虫情数据"
             android:textSize="@dimen/sp_14"
             android:textColor="@color/text_4d4d4d"/>
 
@@ -190,7 +190,7 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="光控模式"
+                android:text="天气"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/text_4d4d4d"/>
 
@@ -230,7 +230,7 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="光控模式"
+                android:text="GPS"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/text_4d4d4d"/>
 
