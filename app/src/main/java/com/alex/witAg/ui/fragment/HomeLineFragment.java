@@ -90,7 +90,7 @@ public class HomeLineFragment extends BaseFragment<HomeLinePresenter, IHomeLineV
         mLc_chart.setDrawGridBackground(false);
         mLc_chart.setHighlightPerDragEnabled(true);
         mLc_chart.setDrawBorders(false);
-        setData(100, 30);
+        setData(100, 100);
         mLc_chart.animateX(1000);
 
         /**设置数据点坐标样式*/
