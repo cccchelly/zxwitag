@@ -3,6 +3,18 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/et_serial_info"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_20"
+        android:gravity="center"
+        android:hint="请输入串口信息"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:background="@drawable/shape_et_search"/>
 
     <LinearLayout
         android:gravity="center"
