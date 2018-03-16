@@ -29,7 +29,7 @@ public final class AppDataManager implements IDataManager{
 
     public static AppDataManager getInstence() {
         if (mAppDataManager == null) {
-            synchronized (Net.class) {
+            synchronized (AppDataManager.class) {
                 if (mAppDataManager == null) {
                     mAppDataManager = new AppDataManager();
                 }

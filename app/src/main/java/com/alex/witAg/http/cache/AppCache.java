@@ -16,7 +16,7 @@ public class AppCache implements IAcache{
 
     public static AppCache getInstence() {
         if (mAppCache == null) {
-            synchronized (Net.class) {
+            synchronized (AppCache.class) {
                 if (mAppCache == null) {
                     mAppCache = new AppCache();
                 }
