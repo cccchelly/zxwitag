@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.alex.witAg.R;
@@ -33,8 +34,6 @@ import java.util.Arrays;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-import static com.alex.witAg.utils.ToastUtils.showToast;
-
 /**
  * Created by dth
  * Des:
@@ -52,6 +51,8 @@ public class ControlFragment extends BaseFragment<ControlPresenter, IControlView
     TextView mIcReset;
     @BindView(R.id.tv_serial)
     TextView mTvSearal;
+    @BindView(R.id.et_serial_info)
+    EditText mEtSerialInfo;
     private SerialPortManager mSerialPortManager;
     public static final String TAG = ControlFragment.class.getName();
     private ArrayList<Device> mDevices;
@@ -107,18 +108,24 @@ public class ControlFragment extends BaseFragment<ControlPresenter, IControlView
 
     @OnClick({R.id.tv_rise, R.id.tv_decline, R.id.tv_take_photo, R.id.ic_reset,R.id.tv_serial})
     public void onViewClicked(View view) {
+
         switch (view.getId()) {
             case R.id.tv_rise:
-                send("上升");
+                String data = mEtSerialInfo.getText().toString();
+                if (TextUtils.isEmpty(data)) {
+                    ToastUtils.showToast("发送数据不能为空！");
+                    return;
+                }
+                send(data);
                 break;
             case R.id.tv_decline:
-                send("下降");
+//                send(data);
                 break;
             case R.id.tv_take_photo:
-                send("拍照");
+//                send(data);
                 break;
             case R.id.ic_reset:
-                send("复位 ");
+//                send(data);
                 break;
             case R.id.tv_serial:
                 DialogPlus.newDialog(getContext())
@@ -146,7 +153,7 @@ public class ControlFragment extends BaseFragment<ControlPresenter, IControlView
     @Override
     public void onSuccess(File device) {
 
-        showToast(String.format("串口 [%s] 打开成功", device.getPath()));
+        ToastUtils.showToast(String.format("串口 [%s] 打开成功", device.getPath()));
     }
 
     @Override
@@ -154,11 +161,11 @@ public class ControlFragment extends BaseFragment<ControlPresenter, IControlView
 
         switch (status) {
             case NO_READ_WRITE_PERMISSION:
-                showToast(device.getPath()+ "--- 没有读写权限");
+                ToastUtils.showToast(device.getPath()+ "--- 没有读写权限");
                 break;
             case OPEN_FAIL:
             default:
-                showToast(device.getPath()+ "--- 串口打开失败");
+                ToastUtils.showToast(device.getPath()+ "--- 串口打开失败");
                 break;
         }
     }
