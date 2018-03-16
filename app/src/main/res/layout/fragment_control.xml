@@ -58,4 +58,14 @@
             android:textColor="@color/text_4d4d4d"
             android:textSize="@dimen/sp_16"/>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_serial"
+        android:textColor="@color/white"
+        android:background="@color/main_color"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:text="选择串口"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_20"/>
 </LinearLayout>
