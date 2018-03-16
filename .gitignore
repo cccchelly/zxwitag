@@ -9,3 +9,4 @@
 /captures
 .externalNativeBuild
 proguard-rules.pro
+/gradle/wrapper/gradle-wrapper.properties
