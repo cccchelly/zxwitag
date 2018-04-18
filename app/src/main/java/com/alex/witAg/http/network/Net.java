@@ -2,8 +2,10 @@ package com.alex.witAg.http.network;
 
 import android.util.Log;
 
+import com.alex.witAg.App;
 import com.alex.witAg.AppContants;
 import com.alex.witAg.BuildConfig;
+import com.alex.witAg.utils.ShareUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -23,20 +25,19 @@ public class Net {
 
     private static Net mNet;
     private static Retrofit mRetrofit;
+    public static  String URL_KIND_COMPANY = "company";
+    public static  String BASE = "base";
 
-    private Net() {
-
+    private Net(String url) {
         OkHttpClient okHttpClient = provideOkHttpClient(new CustomInterceptor());
-
-        mRetrofit = provideRetrofit(okHttpClient);
-
+        mRetrofit = provideRetrofit(okHttpClient,url);
     }
 
-    public static Net getInstence() {
+    public static Net getInstence(String url) {
         if (mNet == null) {
             synchronized (Net.class) {
                 if (mNet == null) {
-                    mNet = new Net();
+                    mNet = new Net(url);
                 }
             }
         }
@@ -48,10 +49,17 @@ public class Net {
         return mRetrofit.create(IApi.class);
     }
 
-    private Retrofit provideRetrofit(OkHttpClient okHttpClient) {
+    private Retrofit provideRetrofit(OkHttpClient okHttpClient, String url) {
 
+        String finalUrl ;
+      /*  if (isRootUrl){
+            url = AppContants.API_BASE_URL;
+        }else {
+            url = ShareUtil.getCompanyBaseUrl();
+        }*/
+        finalUrl = AppContants.API_BASE_URL;
         return new Retrofit.Builder()
-                .baseUrl(AppContants.API_BASE_URL)
+                .baseUrl(finalUrl)
                 .client(okHttpClient)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())

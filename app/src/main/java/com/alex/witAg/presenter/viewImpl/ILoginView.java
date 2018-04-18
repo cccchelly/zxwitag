@@ -1,5 +1,8 @@
 package com.alex.witAg.presenter.viewImpl;
 
+import android.app.Activity;
+import android.content.Context;
+
 import com.alex.witAg.base.IBaseView;
 
 /**
@@ -9,4 +12,6 @@ import com.alex.witAg.base.IBaseView;
  */
 
 public interface ILoginView extends IBaseView{
+    Activity getContext();
+    void  back();
 }

@@ -251,5 +251,6 @@ public class HomeBean {
             this.master = master;
         }
     }
+
 }
 

@@ -1,27 +1,64 @@
 package com.alex.witAg.ui.activity;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import com.alex.witAg.AppContants;
 import com.alex.witAg.R;
 import com.alex.witAg.base.BaseActivity;
+import com.alex.witAg.base.BaseObserver;
+import com.alex.witAg.base.BaseResponse;
 import com.alex.witAg.bean.HomeBean;
+import com.alex.witAg.bean.UpdateMsgBean;
+import com.alex.witAg.http.AppDataManager;
 import com.alex.witAg.presenter.MainPresenter;
 import com.alex.witAg.presenter.viewImpl.IMainView;
+import com.alex.witAg.service.CaptureService;
+import com.alex.witAg.service.PostPicService;
 import com.alex.witAg.ui.fragment.AboutFragment;
 import com.alex.witAg.ui.fragment.ControlFragment;
 import com.alex.witAg.ui.fragment.DataFragment;
 import com.alex.witAg.ui.fragment.HomeFragment;
 import com.alex.witAg.ui.fragment.SettingFragment;
+import com.alex.witAg.ui.test.CrashUtil;
+import com.alex.witAg.utils.AppMsgUtil;
+import com.alex.witAg.utils.DeviceUtil;
+import com.alex.witAg.utils.DevicesLoginUtil;
+import com.alex.witAg.utils.TaskServiceUtil;
+import com.alex.witAg.utils.eventbus.SerialBackMessage;
 import com.alex.witAg.view.LeftTabView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.orhanobut.logger.Logger;
+import com.umeng.analytics.MobclickAgent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.litepal.tablemanager.Connector;
 
 import butterknife.BindView;
+import ezy.boost.update.ICheckAgent;
+import ezy.boost.update.IUpdateChecker;
+import ezy.boost.update.IUpdateParser;
+import ezy.boost.update.UpdateInfo;
+import ezy.boost.update.UpdateManager;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 @Route(path = AppContants.ARouterUrl.MAIN_ACTIVITY/*, extras = AppContants.LOGIN_INTERCEPTOR*/)
 public class MainActivity extends BaseActivity<MainPresenter, IMainView> implements IMainView {
@@ -36,13 +73,72 @@ public class MainActivity extends BaseActivity<MainPresenter, IMainView> impleme
     private DataFragment    mDataFragment;
     private ControlFragment mControlFragment;
     private AboutFragment mAboutFragment;
+    SQLiteDatabase db= Connector.getDatabase();
+
+    private static final String TAG = MainActivity.class.getSimpleName();
+
+    private LocationManager locationManager;
+    private LocationListener locationListener;
+
 
 
     @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        location();
+        //EventBus.getDefault().register(MainActivity.this);
+    }
+
+    private void location() {
+        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                Log.i(TAG, "onLocationChanged: ");
+                Log.i(TAG, "onLocationChanged: latitude = "+location.getLatitude());
+                Log.i(TAG, "onLocationChanged: longitude = "+location.getLongitude());
+                Log.i(TAG, "onLocationChanged: provider = "+location.getProvider());
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+        };
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_DENIED) {
+            return ;
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
+            return ;
+        }
+
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //EventBus.getDefault().unregister(MainActivity.this);
+    }
+
+    @Override
     protected void init(@Nullable Bundle savedInstanceState) {
-
         initFragment(savedInstanceState);
-
+        TaskServiceUtil.startTasks();
     }
 
     private void initListener() {
@@ -174,6 +270,11 @@ public class MainActivity extends BaseActivity<MainPresenter, IMainView> impleme
         return null;
     }
 
+
+    @Override
+    public Activity getActivity() {
+        return this;
+    }
 
     @Override
     public void onSuccess(HomeBean homeBean) {

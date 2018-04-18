@@ -15,4 +15,9 @@ public interface ISplashView extends IBaseView{
     void enterMain();
 
     void timeCountDown(long time);
+
+    void setUrl();
+
+    void toSetAccount();
+
 }

@@ -4,6 +4,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <EditText
+        android:visibility="gone"
         android:id="@+id/et_serial_info"
         android:layout_marginLeft="@dimen/dp_20"
         android:layout_marginRight="@dimen/dp_20"
@@ -48,12 +49,12 @@
 
         <TextView
             android:id="@+id/tv_take_photo"
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_weight="1"
             android:drawablePadding="@dimen/dp_5"
             android:drawableTop="@drawable/ic_take_photo"
+            android:gravity="center"
             android:text="拍照"
             android:textColor="@color/text_4d4d4d"
             android:textSize="@dimen/sp_16"/>
@@ -70,8 +71,9 @@
             android:textColor="@color/text_4d4d4d"
             android:textSize="@dimen/sp_16"/>
     </LinearLayout>
-
+    <!--选择串口，需求变更为初始打开相应串口-->
     <TextView
+        android:visibility="gone"
         android:id="@+id/tv_serial"
         android:textColor="@color/white"
         android:background="@color/main_color"

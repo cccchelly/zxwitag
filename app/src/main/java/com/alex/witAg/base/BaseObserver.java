@@ -26,22 +26,27 @@ import retrofit2.HttpException;
 
 public abstract class BaseObserver<T extends BaseResponse> implements Observer<T> {
 
-    private IBaseView mIBaseView;
+    private IBaseView mIBaseView = null;
 
     public BaseObserver(IBaseView iBaseView) {
         mIBaseView = iBaseView;
     }
+    public BaseObserver(){
 
+    }
 
     @Override
     public void onSubscribe(@NonNull Disposable d) {
-        mIBaseView.addDisposable(d);
+        if (null!=mIBaseView) {
+            mIBaseView.addDisposable(d);
+        }
     }
 
     @Override
     public void onNext(@NonNull T response) {
-
-        mIBaseView.showDataView();
+        if (null!=mIBaseView) {
+            mIBaseView.showDataView();
+        }
         Logger.d("onNext: %s", response);
         switch (response.getCode()) {
             case BaseResponse.RESULT_CODE_SUCCESS:
@@ -59,14 +64,17 @@ public abstract class BaseObserver<T extends BaseResponse> implements Observer<T
 
         //异常处理，需要自己实现
         Logger.e("onError: "+e.toString());
-        mIBaseView.dissmissLoadingView();
+        if (null!=mIBaseView) {
+            mIBaseView.dissmissLoadingView();
+        }
         handleError(e,mIBaseView);
     }
 
     @Override
     public void onComplete() {
-
-        mIBaseView.dissmissLoadingView();
+        if (null!=mIBaseView) {
+            mIBaseView.dissmissLoadingView();
+        }
     }
 
     public abstract void onSuccess(T response);
@@ -101,7 +109,9 @@ public abstract class BaseObserver<T extends BaseResponse> implements Observer<T
                 || throwable instanceof UnknownHostException
                 || throwable instanceof IOException) {
             Toast.makeText(App.getAppContext(), "网络异常", Toast.LENGTH_SHORT).show();
-            iBaseView.showErrorView();
+            if (null!=iBaseView) {
+                iBaseView.showErrorView();
+            }
         } else if ((throwable instanceof JsonSyntaxException) || (throwable instanceof
                 NumberFormatException) || (throwable instanceof MalformedJsonException)) {
             Toast.makeText(App.getAppContext(), "数据解析异常", Toast.LENGTH_SHORT).show();

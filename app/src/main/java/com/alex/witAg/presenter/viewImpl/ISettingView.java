@@ -9,4 +9,6 @@ import com.alex.witAg.base.IBaseView;
  */
 
 public interface ISettingView extends IBaseView{
+    void toast(String msg);
+    void hideDialogCheckPass();
 }

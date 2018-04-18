@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/sdv_big"
             android:layout_width="match_parent"
@@ -42,7 +41,7 @@
                 android:id="@+id/ic_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_nearby_normal"/>
+                android:src="@drawable/arrow_left"/>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/img_recyclerView"
                 android:layout_weight="1"
@@ -53,7 +52,7 @@
                 android:id="@+id/ic_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_nearby_pressed"/>
+                android:src="@drawable/arrow_right"/>
         </LinearLayout>
     </LinearLayout>
     
@@ -64,15 +63,31 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_20"
-            android:gravity="center"
-            android:hint="请输入查找日期"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:background="@drawable/shape_et_search"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/dp_40"
+            android:layout_marginRight="@dimen/dp_40"
+            android:gravity="center_vertical"
+            android:background="@drawable/shape_et_search">
+            <TextView
+                android:id="@+id/tv_home_img_choose_date"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/dp_20"
+                android:gravity="center"
+                android:hint="请选择查找日期"
+                android:textSize="@dimen/sp_10"
+                android:maxLines="1"
+                android:singleLine="true"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/dp_6"
+                android:src="@drawable/search"/>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_marginTop="@dimen/dp_5"

@@ -1,7 +1,10 @@
 package com.alex.witAg.presenter;
 
+import android.util.Log;
+
 import com.alex.witAg.base.BasePresenter;
 import com.alex.witAg.presenter.viewImpl.ISplashView;
+import com.alex.witAg.utils.ShareUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,7 +23,19 @@ public class SplashPresenter extends BasePresenter<ISplashView>{
      * 自动登录
      */
     public void autoLogin() {
-        addDisposable(Observable.just(true)
+        Log.i("==token==","token = "+ShareUtil.getToken());
+        if (ShareUtil.hasToken()) {
+            //弱化基础设置
+           /* if (ShareUtil.isSetAndroidPass()) {   //完成基础设置
+                getView().enterMain();
+            }else {
+                getView().toSetAccount();
+            }*/
+            getView().enterMain();
+        }else {
+            getView().setUrl();
+        }
+        /*addDisposable(Observable.just(true)
                 .delay(3, TimeUnit.SECONDS)
                 .doOnSubscribe(disposable -> countDown())
                 .subscribe(isLogin -> {
@@ -29,7 +44,7 @@ public class SplashPresenter extends BasePresenter<ISplashView>{
                     } else {
                         getView().enterLogin();
                     }
-                }));
+                }));*/
 
     }
 

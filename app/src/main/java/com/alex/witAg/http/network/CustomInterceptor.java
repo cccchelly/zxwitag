@@ -27,17 +27,17 @@ public class CustomInterceptor implements Interceptor {
 
         //添加请求头
         Request request = original.newBuilder()
-                //                .addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
-                //                .addHeader("Connection", "keep-alive")
+      //                          .addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+    //                            .addHeader("Connection", "keep-alive")
 //                .addHeader("token", mIPreference.getToken())
                 //                .addHeader("token","7ee9163da415eb7a5a3f6c7743914fbc")
 //                .removeHeader("User-Agent")
 //                .addHeader("User-Agent", CommonUtils.getUserAgent())
-                .method(original.method(), original.body())
+               // .method(original.method(), original.body())
                 .url(url)
                 .build();
 
+            return chain.proceed(request);
 
-        return chain.proceed(request);
     }
 }

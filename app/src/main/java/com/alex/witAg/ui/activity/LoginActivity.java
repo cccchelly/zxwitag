@@ -2,6 +2,8 @@ package com.alex.witAg.ui.activity;
 
 import android.animation.LayoutTransition;
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,8 +19,10 @@ import com.alex.witAg.presenter.LoginPresenter;
 import com.alex.witAg.presenter.viewImpl.ILoginView;
 import com.alex.witAg.runtimepermission.PermissionsManager;
 import com.alex.witAg.runtimepermission.PermissionsResultAction;
+import com.alex.witAg.utils.ToastUtils;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.orhanobut.logger.Logger;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -47,15 +51,15 @@ public class LoginActivity extends BaseActivity<LoginPresenter, ILoginView> impl
 
     @Override
     protected void init(@Nullable Bundle savedInstanceState) {
-
-//        StatusBarUtil.setTranslucentForImageView(this, Color.TRANSPARENT, null);
-        requestPermissions();
-        int startDelay = getResources().getInteger(android.R.integer.config_mediumAnimTime) + 100;
-        LayoutTransition transition = new LayoutTransition();
-        transition.enableTransitionType(LayoutTransition.CHANGING);
-        //        transition.setStartDelay(LayoutTransition.APPEARING, startDelay);
-        transition.setStartDelay(LayoutTransition.CHANGE_APPEARING, startDelay);
-        mLoginForm.setLayoutTransition(transition);
+        getPresenter().login();
+        //StatusBarUtil.setTranslucentForImageView(this, Color.TRANSPARENT, null);
+        //requestPermissions();
+        //int startDelay = getResources().getInteger(android.R.integer.config_mediumAnimTime) + 100;
+        //LayoutTransition transition = new LayoutTransition();
+        //transition.enableTransitionType(LayoutTransition.CHANGING);
+        //transition.setStartDelay(LayoutTransition.APPEARING, startDelay);
+        //transition.setStartDelay(LayoutTransition.CHANGE_APPEARING, startDelay);
+       // mLoginForm.setLayoutTransition(transition);
     }
 
     @Override
@@ -87,6 +91,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter, ILoginView> impl
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_commit:
+
                 break;
             case R.id.tvRegister:
                 break;
@@ -116,4 +121,16 @@ public class LoginActivity extends BaseActivity<LoginPresenter, ILoginView> impl
                                            @NonNull int[] grantResults) {
         PermissionsManager.getInstance().notifyPermissionsChange(permissions, grantResults);
     }
+
+    @Override
+    public Activity getContext() {
+        return this;
+    }
+
+    @Override
+    public void back() {
+        ToastUtils.showToast("登录成功");
+        onBackPressed();
+    }
+
 }

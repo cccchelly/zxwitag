@@ -12,6 +12,7 @@ import com.alex.witAg.R;
 import com.alex.witAg.http.loading.NetLoadingHelper;
 import com.alex.witAg.utils.ToastUtils;
 import com.alex.witAg.widget.VaryViewHelper;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -68,7 +69,6 @@ public abstract class BaseActivity<T extends BasePresenter<V>,V extends BaseMvpV
         }
 
         init(savedInstanceState);
-
     }
 
     /**
@@ -192,6 +192,17 @@ public abstract class BaseActivity<T extends BasePresenter<V>,V extends BaseMvpV
         mUnbinder.unbind();
         mActivity = null;
         super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
 }

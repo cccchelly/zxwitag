@@ -28,7 +28,7 @@
 
     <FrameLayout
         android:id="@+id/fl_container"
-        android:background="@drawable/selector_ic_home"
+        android:background="@drawable/selector_main_img_bg_noconner"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

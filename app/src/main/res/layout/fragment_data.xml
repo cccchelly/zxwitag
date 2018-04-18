@@ -13,7 +13,7 @@
         <LinearLayout
             android:layout_marginLeft="@dimen/dp_10"
             android:layout_marginRight="@dimen/dp_5"
-            android:background="#90dd8d"
+            android:background="@drawable/selector_shape_data_item_bg_conner"
             android:gravity="center_horizontal"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -22,7 +22,7 @@
 
             <ImageView
                 android:layout_marginTop="@dimen/dp_10"
-                android:src="@drawable/ic_light_mode"
+                android:src="@drawable/capture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -30,12 +30,13 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="光控模式"
+                android:text="夜间拍摄"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/text_4d4d4d"/>
 
             <TextView
-                android:layout_marginTop="@dimen/dp_40"
+                android:id="@+id/data_tv_dark_capture_status"
+                android:layout_marginTop="@dimen/dp_18"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,7 +54,7 @@
         <LinearLayout
             android:layout_marginLeft="@dimen/dp_5"
             android:layout_marginRight="@dimen/dp_5"
-            android:background="#90dd8d"
+            android:background="@drawable/selector_shape_data_item_bg_conner"
             android:gravity="center_horizontal"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -62,7 +63,7 @@
 
             <ImageView
                 android:layout_marginTop="@dimen/dp_10"
-                android:src="@drawable/ic_heat_pipe"
+                android:src="@drawable/battrayvol"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -70,12 +71,13 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="加热管"
+                android:text="电池电压"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/text_4d4d4d"/>
 
             <TextView
-                android:layout_marginTop="@dimen/dp_40"
+                android:id="@+id/data_tv_batvol_status"
+                android:layout_marginTop="@dimen/dp_18"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -83,17 +85,12 @@
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/text_4d4d4d"/>
 
-            <com.alex.witAg.view.EaseSwitchButton
-                android:layout_marginBottom="@dimen/dp_10"
-                android:id="@+id/sb_pipe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_marginLeft="@dimen/dp_5"
             android:layout_marginRight="@dimen/dp_5"
-            android:background="#90dd8d"
+            android:background="@drawable/selector_shape_data_item_bg_conner"
             android:gravity="center_horizontal"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -102,7 +99,7 @@
 
             <ImageView
                 android:layout_marginTop="@dimen/dp_10"
-                android:src="@drawable/ic_bin_type"
+                android:src="@drawable/sunvol"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -110,12 +107,13 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="仓位类型"
+                android:text="太阳能电压"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/text_4d4d4d"/>
 
             <TextView
-                android:layout_marginTop="@dimen/dp_40"
+                android:id="@+id/data_tv_sunvvol_status"
+                android:layout_marginTop="@dimen/dp_18"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -123,17 +121,12 @@
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/text_4d4d4d"/>
 
-            <com.alex.witAg.view.EaseSwitchButton
-                android:layout_marginBottom="@dimen/dp_10"
-                android:id="@+id/sb_bin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
         </LinearLayout>
 
         <LinearLayout
         android:layout_marginLeft="@dimen/dp_5"
         android:layout_marginRight="@dimen/dp_5"
-        android:background="#90dd8d"
+            android:background="@drawable/selector_shape_data_item_bg_conner"
         android:gravity="center_horizontal"
         android:layout_width="0dp"
         android:layout_weight="1"
@@ -142,7 +135,7 @@
 
         <ImageView
             android:layout_marginTop="@dimen/dp_10"
-            android:src="@drawable/ic_insect_data"
+            android:src="@drawable/dianjiban"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -150,12 +143,13 @@
             android:layout_marginTop="@dimen/dp_10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="虫情数据"
+            android:text="电机状态"
             android:textSize="@dimen/sp_14"
             android:textColor="@color/text_4d4d4d"/>
 
         <TextView
-            android:layout_marginTop="@dimen/dp_40"
+            android:id="@+id/data_tv_dianji_status"
+            android:layout_marginTop="@dimen/dp_18"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -163,17 +157,12 @@
             android:textSize="@dimen/sp_14"
             android:textColor="@color/text_4d4d4d"/>
 
-        <com.alex.witAg.view.EaseSwitchButton
-            android:layout_marginBottom="@dimen/dp_10"
-            android:id="@+id/sb_insect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
     </LinearLayout>
 
         <LinearLayout
             android:layout_marginLeft="@dimen/dp_5"
             android:layout_marginRight="@dimen/dp_5"
-            android:background="#90dd8d"
+            android:background="@drawable/selector_shape_data_item_bg_conner"
             android:gravity="center_horizontal"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -193,27 +182,36 @@
                 android:text="天气"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/text_4d4d4d"/>
-
             <TextView
-                android:layout_marginTop="@dimen/dp_40"
-                android:layout_weight="1"
+                android:layout_marginTop="@dimen/dp_8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="状态"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/text_4d4d4d"/>
 
-            <com.alex.witAg.view.EaseSwitchButton
-                android:layout_marginBottom="@dimen/dp_10"
-                android:id="@+id/sb_weather"
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:text="湿度"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/text_4d4d4d"/>
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:text="状态"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/text_4d4d4d"/>
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_marginLeft="@dimen/dp_5"
             android:layout_marginRight="@dimen/dp_10"
-            android:background="#90dd8d"
+            android:background="@drawable/selector_shape_data_item_bg_conner"
             android:gravity="center_horizontal"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -243,11 +241,6 @@
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/text_4d4d4d"/>
 
-            <com.alex.witAg.view.EaseSwitchButton
-                android:layout_marginBottom="@dimen/dp_10"
-                android:id="@+id/sb_gps"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
         </LinearLayout>
 
     </LinearLayout>

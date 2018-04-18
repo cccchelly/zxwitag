@@ -1,6 +1,15 @@
 package com.alex.witAg.presenter.viewImpl;
 
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Bitmap;
+
+import com.alex.witAg.adapter.DeviceAdapter;
 import com.alex.witAg.base.IBaseView;
+import com.kongqw.serialportlibrary.SerialPortManager;
+import com.kongqw.serialportlibrary.listener.OnOpenSerialPortListener;
+
+import java.io.File;
 
 /**
  * Created by dth
@@ -9,4 +18,10 @@ import com.alex.witAg.base.IBaseView;
  */
 
 public interface IControlView extends IBaseView{
+    String getSerialInfo();
+    void showSerialInfoEmpty();
+    Activity getACtivity();
+    void showDialog(DeviceAdapter mDeviceAdapter, SerialPortManager mSerialPortManager);
+    void showOpenMsg(String msg);
+    void showCapture(Bitmap bitmap);
 }

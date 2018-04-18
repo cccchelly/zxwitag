@@ -1,23 +1,61 @@
 package com.alex.witAg.ui.fragment;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.alex.witAg.App;
 import com.alex.witAg.R;
 import com.alex.witAg.adapter.DeviceAdapter;
 import com.alex.witAg.base.BaseFragment;
 import com.alex.witAg.presenter.ControlPresenter;
+import com.alex.witAg.presenter.DataPresenter;
+import com.alex.witAg.presenter.LoginPresenter;
 import com.alex.witAg.presenter.viewImpl.IControlView;
+import com.alex.witAg.ui.test.CrashUtil;
+import com.alex.witAg.ui.test.PlaySurfaceView;
+import com.alex.witAg.ui.test.jna.HCNetSDKJNAInstance;
+import com.alex.witAg.utils.CapturePostUtil;
+import com.alex.witAg.utils.CaptureTaskUtil;
 import com.alex.witAg.utils.DensityUtil;
+import com.alex.witAg.utils.DevicesLoginUtil;
+import com.alex.witAg.utils.FileUtils;
+import com.alex.witAg.utils.SerialInforStrUtil;
+import com.alex.witAg.utils.TimeUtils;
 import com.alex.witAg.utils.ToastUtils;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.hikvision.netsdk.ExceptionCallBack;
+import com.hikvision.netsdk.HCNetSDK;
+import com.hikvision.netsdk.INT_PTR;
+import com.hikvision.netsdk.NET_DVR_DEVICEINFO_V30;
+import com.hikvision.netsdk.NET_DVR_JPEGPARA;
+import com.hikvision.netsdk.NET_DVR_PREVIEWINFO;
+import com.hikvision.netsdk.RealDataCallBack;
+import com.hikvision.netsdk.StdDataCallBack;
 import com.kongqw.serialportlibrary.Device;
 import com.kongqw.serialportlibrary.SerialPortFinder;
 import com.kongqw.serialportlibrary.SerialPortManager;
@@ -25,9 +63,14 @@ import com.kongqw.serialportlibrary.listener.OnOpenSerialPortListener;
 import com.kongqw.serialportlibrary.listener.OnSerialPortDataListener;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ListHolder;
+import com.orhanobut.dialogplus.ViewHolder;
 import com.orhanobut.logger.Logger;
 
+import org.MediaPlayer.PlayM4.Player;
+
 import java.io.File;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -40,7 +83,7 @@ import butterknife.OnClick;
  * Date: 2018-03-08.
  */
 
-public class ControlFragment extends BaseFragment<ControlPresenter, IControlView> implements IControlView, OnOpenSerialPortListener {
+public class ControlFragment extends BaseFragment<ControlPresenter, IControlView>  implements IControlView{
     @BindView(R.id.tv_rise)
     TextView mTvRise;
     @BindView(R.id.tv_decline)
@@ -53,11 +96,6 @@ public class ControlFragment extends BaseFragment<ControlPresenter, IControlView
     TextView mTvSearal;
     @BindView(R.id.et_serial_info)
     EditText mEtSerialInfo;
-    private SerialPortManager mSerialPortManager;
-    public static final String TAG = ControlFragment.class.getName();
-    private ArrayList<Device> mDevices;
-    private Device mDevice;
-    private DeviceAdapter mDeviceAdapter;
 
     @Override
     protected void fetchData() {
@@ -66,15 +104,7 @@ public class ControlFragment extends BaseFragment<ControlPresenter, IControlView
 
     @Override
     protected void init(View view, @Nullable Bundle savedInstanceState) {
-        SerialPortFinder serialPortFinder = new SerialPortFinder();
-        mDevices = serialPortFinder.getDevices();
-        if(mDevices == null || mDevices.size() == 0) return;
-        mDevice = mDevices.get(0);
-        mSerialPortManager = new SerialPortManager();
-        Logger.d("device: ",mDevices);
-        mDeviceAdapter = new DeviceAdapter(getContext(), mDevices);
-
-
+        getPresenter().initDevice(getActivity());
     }
 
     @Override
@@ -84,12 +114,11 @@ public class ControlFragment extends BaseFragment<ControlPresenter, IControlView
 
     @Override
     protected ControlPresenter initPresenter() {
-        return null;
+        return new ControlPresenter();
     }
 
     @Override
     protected void onRetryListener() {
-
     }
 
     @Override
@@ -99,123 +128,120 @@ public class ControlFragment extends BaseFragment<ControlPresenter, IControlView
 
     @Override
     public void onDestroy() {
-        if (mSerialPortManager != null) {
-            mSerialPortManager.closeSerialPort();
-            mSerialPortManager = null;
-        }
+       getPresenter().destoryDevice();
         super.onDestroy();
     }
 
-    @OnClick({R.id.tv_rise, R.id.tv_decline, R.id.tv_take_photo, R.id.ic_reset,R.id.tv_serial})
+    @OnClick({R.id.tv_rise, R.id.tv_decline, R.id.tv_take_photo, R.id.ic_reset, R.id.tv_serial})
     public void onViewClicked(View view) {
 
         switch (view.getId()) {
             case R.id.tv_rise:
-                String data = mEtSerialInfo.getText().toString();
-                if (TextUtils.isEmpty(data)) {
-                    ToastUtils.showToast("发送数据不能为空！");
+               /* if (TextUtils.isEmpty(getSerialInfo())) {
+                    showSerialInfoEmpty();
                     return;
-                }
-                send(data);
+                }*/
+                getPresenter().send(SerialInforStrUtil.getRiseStr());  //1
                 break;
             case R.id.tv_decline:
-//                send(data);
+                getPresenter().send(SerialInforStrUtil.getDeclineStr()); //2
                 break;
             case R.id.tv_take_photo:
-//                send(data);
+                //拍照
+
+                if (!App.getIsTaskRun()) {
+                   /* if (App.isIsNeedReLogin()){
+                        getPresenter().login();
+                    }*/
+                    if (getPresenter().openCapture()) {
+                        getPresenter().login();
+                        getPresenter().capture();
+                        getPresenter().clossCapture();
+                    }
+                /*Bitmap bitmap = BitmapFactory.decodeResource(getActivity().getResources(), R.mipmap.big);
+                    FileUtils.saveContentToSdcard("aaaaa.jpg",FileUtils.Bitmap2Bytes(bitmap));
+                    File fileNew  = FileUtils.getFileFromSdcard("aaaaa.jpg");
+                    String deviceStatue = "";
+                    if (TextUtils.equals(App.getDeviceStatue(),"1")){
+                        deviceStatue = "-A";
+                    }else if (TextUtils.equals(App.getDeviceStatue(),"2")){
+                        deviceStatue = "-B";
+                    }else {
+                        deviceStatue = "-O";
+                    }
+                    String picName = TimeUtils.millis2String(System.currentTimeMillis(),
+                            new SimpleDateFormat("yyyyMMddHHmmss"))+deviceStatue+".jpg";
+                    CapturePostUtil.postPic(fileNew,picName);*/
+                }else {
+                    ToastUtils.showToast("定时拍照进行中，请稍后手动操作");
+                }
                 break;
             case R.id.ic_reset:
-//                send(data);
+                getPresenter().send(SerialInforStrUtil.getResetStr()); //0
                 break;
             case R.id.tv_serial:
-                DialogPlus.newDialog(getContext())
-                        .setContentHolder(new ListHolder())
-                        .setAdapter(mDeviceAdapter)
-                        .setCancelable(true)
-                        .setGravity(Gravity.CENTER)
-                        .setOverlayBackgroundResource(Color.TRANSPARENT)
-                        .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-                        .setContentWidth(DensityUtil.dip2px(600))
-                        .setOnItemClickListener((dialog, item, view1, position) -> {
-
-                            mSerialPortManager.closeSerialPort();
-                            mDevice = mDeviceAdapter.getItem(position);
-                            boolean result = openDevice(mDevice);
-
-                            dialog.dismiss();
-                        })
-                        .create()
-                        .show();
+                //getPresenter().getDeviceList();
                 break;
         }
     }
 
-    @Override
-    public void onSuccess(File device) {
 
-        ToastUtils.showToast(String.format("串口 [%s] 打开成功", device.getPath()));
+
+
+    @Override
+    public String getSerialInfo() {
+        return mEtSerialInfo.getText().toString();
     }
 
     @Override
-    public void onFail(File device, Status status) {
-
-        switch (status) {
-            case NO_READ_WRITE_PERMISSION:
-                ToastUtils.showToast(device.getPath()+ "--- 没有读写权限");
-                break;
-            case OPEN_FAIL:
-            default:
-                ToastUtils.showToast(device.getPath()+ "--- 串口打开失败");
-                break;
-        }
+    public void showSerialInfoEmpty() {
+        ToastUtils.showToast("发送数据不能为空！");
     }
 
-    public boolean openDevice(Device device) {
-        // 打开串口
-        boolean openSerialPort = mSerialPortManager.setOnOpenSerialPortListener(this)
-                .setOnSerialPortDataListener(new OnSerialPortDataListener() {
-                    @Override
-                    public void onDataReceived(byte[] bytes) {
-                        Log.i(TAG, "onDataReceived [ byte[] ]: " + Arrays.toString(bytes));
-                        Log.i(TAG, "onDataReceived [ String ]: " + new String(bytes));
-                        final byte[] finalBytes = bytes;
-                        getActivity().runOnUiThread(() -> ToastUtils.showToast(String.format("接收\n%s", new String(finalBytes))));
-                    }
+    @Override
+    public Activity getACtivity() {
+        return getActivity();
+    }
 
-                    @Override
-                    public void onDataSent(byte[] bytes) {
-                        Log.i(TAG, "onDataSent [ byte[] ]: " + Arrays.toString(bytes));
-                        Log.i(TAG, "onDataSent [ String ]: " + new String(bytes));
-                        final byte[] finalBytes = bytes;
-                        getActivity().runOnUiThread(() -> ToastUtils.showToast(String.format("发送\n%s", new String(finalBytes))));
-                    }
+    @Override
+    public void showDialog(DeviceAdapter mDeviceAdapter,SerialPortManager mSerialPortManager) {
+        DialogPlus.newDialog(getContext())
+                .setContentHolder(new ListHolder())
+                .setAdapter(mDeviceAdapter)
+                .setCancelable(true)
+                .setGravity(Gravity.CENTER)
+                .setOverlayBackgroundResource(Color.TRANSPARENT)
+                .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                .setContentWidth(DensityUtil.dip2px(600))
+                .setOnItemClickListener((dialog, item, view1, position) -> {
+                    mSerialPortManager.closeSerialPort();
+                    Device mDevice = mDeviceAdapter.getItem(position);
+                    getPresenter().openDevice(mDevice);
+                    dialog.dismiss();
                 })
-                .openSerialPort(device.getFile(), 9600);
-
-        Log.i(TAG, "onCreate: openSerialPort = " + openSerialPort);
-
-        return openSerialPort;
+                .create()
+                .show();
     }
 
-    /**
-     * 发送数据
-     *
-     *
-     */
-    public void send(String data) {
-        if (null == data) {
-            return;
-        }
-        if (TextUtils.isEmpty(data)) {
-            Log.i(TAG, "onSend: 发送内容为 null");
-            return;
-        }
+    @Override
+    public void showOpenMsg(String msg) {
+        ToastUtils.showToast(msg);
+    }
 
-        byte[] sendContentBytes = data.getBytes();
-
-        boolean sendBytes = mSerialPortManager.sendBytes(sendContentBytes);
-        Log.i(TAG, "onSend: sendBytes = " + sendBytes);
-        ToastUtils.showToast(sendBytes ? "发送成功" : "发送失败");
+    @Override
+    public void showCapture(Bitmap bitmap) {
+        DialogPlus dialogPlus = DialogPlus.newDialog(getContext())
+                .setContentHolder(new ViewHolder(R.layout.activity_show_pic))
+                .setCancelable(true)
+                .setGravity(Gravity.CENTER)
+                .setOverlayBackgroundResource(Color.TRANSPARENT)
+                .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                .setContentWidth(ViewGroup.LayoutParams.WRAP_CONTENT)
+                .create();
+        dialogPlus.show();
+        ImageView imageView = (ImageView) dialogPlus.getHolderView().findViewById(R.id.show_pic_img);
+        imageView.setOnClickListener(v -> dialogPlus.dismiss());
+        imageView.setImageBitmap(bitmap);
     }
 
 }
