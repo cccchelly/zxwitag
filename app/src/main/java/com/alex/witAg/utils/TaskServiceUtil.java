@@ -19,8 +19,8 @@ public class TaskServiceUtil {
         App.getAppContext().startService(intent);
         Intent postIntent = new Intent(App.getAppContext(), PostPicService.class);   //开启服务定时上传
         App.getAppContext().startService(postIntent);
-        Intent updateIntent = new Intent(App.getAppContext(), UpdateService.class);  //开启更新查询
-        App.getAppContext().startService(updateIntent);
+        /*Intent updateIntent = new Intent(App.getAppContext(), UpdateService.class);  //开启更新查询
+        App.getAppContext().startService(updateIntent);*/
     }
 
     public static void stopTasks(){
