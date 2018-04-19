@@ -1,5 +1,7 @@
 package com.alex.witAg.http.network;
 
+import com.alex.witAg.utils.ShareUtil;
+
 import java.io.IOException;
 
 import okhttp3.HttpUrl;
@@ -34,6 +36,7 @@ public class CustomInterceptor implements Interceptor {
 //                .removeHeader("User-Agent")
 //                .addHeader("User-Agent", CommonUtils.getUserAgent())
                // .method(original.method(), original.body())
+                .addHeader("Cookie", "token="+ShareUtil.getToken())
                 .url(url)
                 .build();
 

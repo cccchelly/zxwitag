@@ -12,6 +12,7 @@ import com.alex.witAg.bean.PicMessageBean;
 import com.alex.witAg.bean.PicPathsBean;
 import com.alex.witAg.bean.QiNiuTokenBean;
 import com.alex.witAg.http.AppDataManager;
+import com.alex.witAg.http.network.Net;
 import com.qiniu.android.common.FixedZone;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.Configuration;
@@ -66,8 +67,8 @@ public class CapturePostUtil {
     public static void postPic(File file, String picName){
         //getView().showLoadingView("图片上传中...");
 
-        AppDataManager.getInstence(AppContants.URL_STR_BASE)
-                .getQiNiuToken()
+        AppDataManager.getInstence(Net.URL_KIND_COMPANY)
+                .getQiNiuToken(ShareUtil.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<BaseResponse<QiNiuTokenBean>>() {
@@ -110,7 +111,7 @@ public class CapturePostUtil {
     }
 
     static void postPic(PicMessageBean messageBean, String picName){
-        AppDataManager.getInstence(AppContants.URL_STR_BASE)
+        AppDataManager.getInstence(Net.URL_KIND_COMPANY)
                 .postDevicePic(messageBean)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

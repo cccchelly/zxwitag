@@ -11,6 +11,7 @@ import com.alex.witAg.R;
 import com.alex.witAg.base.BaseActivity;
 import com.alex.witAg.presenter.SplashPresenter;
 import com.alex.witAg.presenter.viewImpl.ISplashView;
+import com.alex.witAg.utils.ShareUtil;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 
@@ -40,9 +41,9 @@ public class SplashActivity extends BaseActivity<SplashPresenter,ISplashView> im
 
     @Override
     protected void onResume() {
-        Log.i(TAG,"----splashactivity_onresume----");
-        //getPresenter().autoLogin();
-        enterMain();
+        Log.i(TAG,"==splashactivity_onresume==");
+        getPresenter().autoLogin();
+        //enterMain();
         super.onResume();
     }
 

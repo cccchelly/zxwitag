@@ -28,8 +28,6 @@ public class BindCompanyActivity extends BaseActivity<BindCompanyPresenter, IBin
     TextView mTvSure;
     @BindView(R.id.bind_company_url_tv_cancle)
     TextView mTvCancle;
-    @Autowired(name = AppContants.TOKEN_TRANS_KEY)
-    String token;
     @BindView(R.id.bind_company_url_edt_address)
     EditText mEdtAddress;
     @BindView(R.id.bind_company_url_edt_main_tain)
@@ -89,7 +87,7 @@ public class BindCompanyActivity extends BaseActivity<BindCompanyPresenter, IBin
                 String name = mEdtName.getText().toString();
                 String tel = mEdtTel.getText().toString();
                 String pass =  mEdtPassword.getText().toString();
-                getPresenter().bind(accountName,address,maintain,name,tel,pass,token);
+                getPresenter().bind(accountName,address,maintain,name,tel,pass);
                 break;
             case R.id.bind_company_url_tv_cancle:
                 finish();

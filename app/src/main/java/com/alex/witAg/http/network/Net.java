@@ -26,7 +26,7 @@ public class Net {
     private static Net mNet;
     private static Retrofit mRetrofit;
     public static  String URL_KIND_COMPANY = "company";
-    public static  String BASE = "base";
+    public static  String URL_KIND_BASE = "base";
 
     private Net(String url) {
         OkHttpClient okHttpClient = provideOkHttpClient(new CustomInterceptor());

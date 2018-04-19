@@ -1,6 +1,8 @@
 package com.alex.witAg.http;
 
 import com.alex.witAg.base.BaseResponse;
+import com.alex.witAg.bean.BaseSettingRequestBean;
+import com.alex.witAg.bean.BaseSettingResponseBean;
 import com.alex.witAg.bean.BindComRequestBean;
 import com.alex.witAg.bean.BindComResponseBean;
 import com.alex.witAg.bean.BindPhoneResponseBean;
@@ -10,6 +12,7 @@ import com.alex.witAg.bean.PhotoDetailRecodeBean;
 import com.alex.witAg.bean.PhotoSetResponseBean;
 import com.alex.witAg.bean.PicListBean;
 import com.alex.witAg.bean.PicMessageBean;
+import com.alex.witAg.bean.PostLocationResponseBean;
 import com.alex.witAg.bean.QiNiuTokenBean;
 import com.alex.witAg.bean.SendSmsResponseBean;
 import com.alex.witAg.bean.UpdateMsgBean;
@@ -68,9 +71,10 @@ public final class AppDataManager implements IDataManager{
     }
 
     @Override
-    public Observable<BaseResponse<UpdateMsgBean>> getVersion(String versionCode) {
-        return mIApi.getVersion(versionCode);
+    public Observable<BaseResponse<UpdateMsgBean>> getVersion(String token, String versionCode) {
+        return mIApi.getVersion(token,versionCode);
     }
+
 
     @Override
     public Observable<BaseResponse<GetTokenBean>> getToken(String imei) {
@@ -80,6 +84,11 @@ public final class AppDataManager implements IDataManager{
     @Override
     public Observable<BaseResponse<BindComResponseBean>> bindCompany(BindComRequestBean bindComRequestBean) {
         return mIApi.bindCompany(bindComRequestBean);
+    }
+
+    @Override
+    public Observable<BaseResponse<BaseSettingResponseBean>> setBaseSetting(BaseSettingRequestBean baseSettingRequestBean) {
+        return mIApi.setBaseSetting(baseSettingRequestBean);
     }
 
     @Override
@@ -97,11 +106,16 @@ public final class AppDataManager implements IDataManager{
         return mIApi.bindPhone(token,phone,code);
     }
 
+    @Override
+    public Observable<BaseResponse<PostLocationResponseBean>> postLocation(String Latitude, String Longitude) {
+        return mIApi.postLocation(Latitude,Longitude);
+    }
 
     @Override
-    public Observable<BaseResponse<QiNiuTokenBean>> getQiNiuToken() {
-        return mIApi.getQiNiuToken();
+    public Observable<BaseResponse<QiNiuTokenBean>> getQiNiuToken(String token) {
+        return mIApi.getQiNiuToken(token);
     }
+
 
     @Override
     public Observable<ResponseBody> postDevicePic(PicMessageBean messageBean) {
@@ -109,14 +123,13 @@ public final class AppDataManager implements IDataManager{
     }
 
     @Override
-    public Observable<BaseResponse<PicListBean>> getPicListData(String date) {
-        return mIApi.getPicListData(date);
+    public Observable<BaseResponse<PicListBean>> getPicListData(String token, String date) {
+        return mIApi.getPicListData(token,date);
     }
 
-
     @Override
-    public Observable<BaseResponse<PhotoDetailRecodeBean>> getRecodeByPhoto(String id) {
-        return mIApi.getRecodeByPhoto(id);
+    public Observable<BaseResponse<PhotoDetailRecodeBean>> getRecodeByPhoto(String id, String token) {
+        return mIApi.getRecodeByPhoto(id,token);
     }
 
 

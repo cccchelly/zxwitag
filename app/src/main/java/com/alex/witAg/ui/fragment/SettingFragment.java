@@ -54,15 +54,15 @@ public class SettingFragment extends BaseFragment<SettingPresenter, ISettingView
     //校验密码
     private void initDialogCheckPass() {
         dialogCheckPass = DialogPlus.newDialog(getActivity())
-                .setContentHolder(new ViewHolder(R.layout.activity_set_account))
+                .setContentHolder(new ViewHolder(R.layout.layout_check_pass))
                 .setGravity(Gravity.CENTER)
                 .setContentWidth(ViewGroup.LayoutParams.WRAP_CONTENT)
                 .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
                 .create();
         View view = dialogCheckPass.getHolderView();
-        EditText edtPass = (EditText) view.findViewById(R.id.set_account_edt_pass);
-        TextView tvSure = (TextView) view.findViewById(R.id.set_account_tv_sure);
-        TextView tvCancle = (TextView) view.findViewById(R.id.set_account_tv_cancle);
+        EditText edtPass = (EditText) view.findViewById(R.id.check_pass_edt_pass);
+        TextView tvSure = (TextView) view.findViewById(R.id.check_pass_tv_sure);
+        TextView tvCancle = (TextView) view.findViewById(R.id.check_pass_tv_cancle);
         tvSure.setOnClickListener(v -> {
             String pass = edtPass.getText().toString();
             getPresenter().checkPass(pass);

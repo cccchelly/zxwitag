@@ -82,11 +82,16 @@ public class SetCompanyUrlActivity extends BaseActivity<SetCompanyUrlPresenter, 
     }
 
     @Override
-    public void toSetAccount(String token) {
+    public void toBindCompany() {
         ARouter.getInstance().build(AppContants.ARouterUrl.BIND_COMPANY_ACTIVITY)
-                .withString(AppContants.TOKEN_TRANS_KEY,token)
                 .navigation();
         finish();
+    }
+
+    @Override
+    public void toSplash() {
+        ARouter.getInstance().build(AppContants.ARouterUrl.SPLASH_ACTIVITY)
+                .navigation();
     }
 
 }

@@ -74,7 +74,7 @@
             android:gravity="center"
             android:drawablePadding="@dimen/dp_5"
             android:drawableTop="@drawable/ic_ip_select"
-            android:text="IP选择选择我"
+            android:text="IP选择"
             android:textColor="@color/text_4d4d4d"
             android:textSize="@dimen/sp_16"/>
         <TextView

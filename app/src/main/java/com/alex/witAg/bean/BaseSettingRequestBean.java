@@ -1,10 +1,10 @@
 package com.alex.witAg.bean;
 
 /**
- * Created by Administrator on 2018-04-17.
+ * Created by Administrator on 2018-04-19.
  */
 
-public class BindComRequestBean {
+public class BaseSettingRequestBean {
 
     /**
      * accountName : string

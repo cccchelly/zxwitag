@@ -8,4 +8,7 @@ import com.alex.witAg.base.IBaseView;
 
 public interface IBindPhoneView extends IBaseView {
     void finishActivity();
+    void sendClose();
+    void sendOpen();
+    void setSendCodeText(String text);
 }

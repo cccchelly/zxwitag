@@ -21,40 +21,13 @@
             android:textSize="@dimen/sp_12"
             android:layout_marginRight="@dimen/dp_20"
             android:maxLines="1"
-            android:text="站 点  名 称"/>
+            android:text="地             址"/>
         <FrameLayout
             android:layout_width="@dimen/dp_178"
             android:layout_height="@dimen/dp_20"
             android:background="@drawable/selector_edt_grey_storke_conner">
             <EditText
-                android:id="@+id/set_account_edt_zhandian_name"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/dp_12"
-                android:maxLines="1"
-                android:background="@null"
-                />
-        </FrameLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_8"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/sp_12"
-            android:layout_marginRight="@dimen/dp_20"
-            android:maxLines="1"
-            android:text="所 属  机 构"/>
-        <FrameLayout
-            android:layout_width="@dimen/dp_178"
-            android:layout_height="@dimen/dp_20"
-            android:background="@drawable/selector_edt_grey_storke_conner">
-            <EditText
-                android:id="@+id/set_account_edt_jigou"
+                android:id="@+id/set_account_url_edt_address"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_12"
@@ -81,7 +54,7 @@
             android:layout_height="@dimen/dp_20"
             android:background="@drawable/selector_edt_grey_storke_conner">
             <EditText
-                android:id="@+id/set_account_edt_person_name"
+                android:id="@+id/set_account_url_edt_main_tain"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_12"
@@ -108,7 +81,7 @@
             android:layout_height="@dimen/dp_20"
             android:background="@drawable/selector_edt_grey_storke_conner">
             <EditText
-                android:id="@+id/set_account_edt_person_phone"
+                android:id="@+id/set_account_url_edt_tel"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_12"
@@ -129,13 +102,13 @@
             android:textSize="@dimen/sp_12"
             android:layout_marginRight="@dimen/dp_20"
             android:maxLines="1"
-            android:text="地 理  位 置"/>
+            android:text="站    点    名"/>
         <FrameLayout
             android:layout_width="@dimen/dp_178"
             android:layout_height="@dimen/dp_20"
             android:background="@drawable/selector_edt_grey_storke_conner">
             <EditText
-                android:id="@+id/set_account_edt_position"
+                android:id="@+id/set_account_url_edt_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_12"
@@ -162,7 +135,7 @@
             android:layout_height="@dimen/dp_20"
             android:background="@drawable/selector_edt_grey_storke_conner">
             <EditText
-                android:id="@+id/set_account_edt_pass"
+                android:id="@+id/set_account_url_edt_password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_12"
@@ -177,7 +150,7 @@
         android:layout_marginBottom="@dimen/dp_14"
         android:orientation="horizontal">
         <TextView
-            android:id="@+id/set_account_tv_sure"
+            android:id="@+id/set_account_url_tv_sure"
             android:layout_width="@dimen/dp_108"
             android:layout_height="@dimen/dp_21"
             android:gravity="center"
@@ -187,7 +160,7 @@
             android:layout_marginRight="@dimen/dp_20"
             android:text="确定"/>
         <TextView
-            android:id="@+id/set_account_tv_cancle"
+            android:id="@+id/set_account_url_tv_cancle"
             android:layout_width="@dimen/dp_108"
             android:layout_height="@dimen/dp_21"
             android:gravity="center"

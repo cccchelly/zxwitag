@@ -8,5 +8,7 @@ import com.alex.witAg.base.IBaseView;
 
 public interface ISetComUrlView extends IBaseView {
     void finishActivity();
-    void toSetAccount(String token);
+    void toBindCompany();
+
+    void toSplash();
 }

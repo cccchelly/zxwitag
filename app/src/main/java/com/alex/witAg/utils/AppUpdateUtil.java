@@ -12,6 +12,7 @@ import com.alex.witAg.base.BaseObserver;
 import com.alex.witAg.base.BaseResponse;
 import com.alex.witAg.bean.UpdateMsgBean;
 import com.alex.witAg.http.AppDataManager;
+import com.alex.witAg.http.network.Net;
 import com.alex.witAg.receiver.UpdateReStartReceiver;
 import com.alex.witAg.ui.activity.SplashActivity;
 import com.google.gson.Gson;
@@ -48,8 +49,8 @@ public class AppUpdateUtil {
             @Override
             public void check(ICheckAgent agent, String url) {
                 Log.e("ezy.update", "checking");
-                AppDataManager.getInstence(AppContants.URL_STR_BASE)
-                        .getVersion(AppMsgUtil.getVersionCode(context)+"")
+                AppDataManager.getInstence(Net.URL_KIND_COMPANY)
+                        .getVersion(ShareUtil.getToken(),AppMsgUtil.getVersionCode(context)+"")
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new BaseObserver<BaseResponse<UpdateMsgBean>>() {

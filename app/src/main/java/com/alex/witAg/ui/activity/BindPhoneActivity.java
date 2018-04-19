@@ -1,8 +1,7 @@
 package com.alex.witAg.ui.activity;
 
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,33 +12,27 @@ import com.alex.witAg.base.BaseActivity;
 import com.alex.witAg.presenter.BindPhonePresenter;
 import com.alex.witAg.presenter.viewImpl.IBindPhoneView;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.umeng.analytics.MobclickAgent;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 @Route(path = AppContants.ARouterUrl.BIND_PHONE_ACTIVITY)
-public class BindPhoneActivity extends BaseActivity<BindPhonePresenter,IBindPhoneView> implements IBindPhoneView {
+public class BindPhoneActivity extends BaseActivity<BindPhonePresenter, IBindPhoneView> implements IBindPhoneView {
+
+    @BindView(R.id.bind_phone_edt_input_phone)
+    EditText mEdtInputPhone;
+    @BindView(R.id.bind_phone_edt_input_code)
+    EditText mEdtInputCode;
+    @BindView(R.id.bind_phone_tv_send_code)
+    TextView mTvSendCode;
+    @BindView(R.id.bind_phone_tv_sure)
+    TextView mTvSure;
+    @BindView(R.id.bind_phone_tv_cancle)
+    TextView mTvCancle;
 
     @Override
     protected void init(@Nullable Bundle savedInstanceState) {
-        initView();
-    }
-
-    private void initView() {
-        EditText edtPhone = (EditText) findViewById(R.id.bind_phone_edt_input_phone);
-        EditText edtCode = (EditText)findViewById(R.id.bind_phone_edt_input_code);
-        TextView tvSendCode = (TextView) findViewById(R.id.bind_phone_tv_send_code);
-        TextView tvSure = (TextView)findViewById(R.id.bind_phone_tv_sure);
-        TextView tvCancle = (TextView) findViewById(R.id.bind_phone_tv_cancle);
-        tvSendCode.setOnClickListener(v -> {
-            getPresenter().sendCode(edtPhone.getText().toString());
-        });
-        tvSure.setOnClickListener(v -> {
-            String phone = edtPhone.getText().toString();
-            String code = edtCode.getText().toString();
-            getPresenter().bindPhone(phone,code);
-        });
-        tvCancle.setOnClickListener(v -> {
-            onBackPressed();
-        });
     }
 
     @Override
@@ -70,6 +63,45 @@ public class BindPhoneActivity extends BaseActivity<BindPhonePresenter,IBindPhon
     @Override
     public void finishActivity() {
         onBackPressed();
+    }
+
+    @Override
+    public void sendClose() {
+        mTvSendCode.setClickable(false);
+    }
+
+    @Override
+    public void sendOpen() {
+        mTvSendCode.setClickable(true);
+    }
+
+    @Override
+    public void setSendCodeText(String text) {
+        mTvSendCode.setText(text);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    @OnClick({R.id.bind_phone_tv_send_code, R.id.bind_phone_tv_sure, R.id.bind_phone_tv_cancle})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.bind_phone_tv_send_code:
+                getPresenter().sendCode(mEdtInputPhone.getText().toString());
+                break;
+            case R.id.bind_phone_tv_sure:
+                String phone = mEdtInputPhone.getText().toString();
+                String code = mEdtInputCode.getText().toString();
+                getPresenter().bindPhone(phone, code);
+                break;
+            case R.id.bind_phone_tv_cancle:
+                onBackPressed();
+                break;
+        }
     }
 
 }

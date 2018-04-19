@@ -24,22 +24,20 @@ import butterknife.OnClick;
 
 @Route(path = AppContants.ARouterUrl.SET_ACCOUNT_ACTIVITY)
 public class SetAccountActivity extends BaseActivity<SetAccountPresenter, IsetAccountView> implements IsetAccountView {
-    @BindView(R.id.set_account_edt_zhandian_name)
-    EditText mEdtZhandianName;
-    @BindView(R.id.set_account_edt_jigou)
-    EditText mEdtJigou;
-    @BindView(R.id.set_account_edt_person_name)
-    EditText mEdtPersonName;
-    @BindView(R.id.set_account_edt_person_phone)
-    EditText mEdtPersonPhone;
-    @BindView(R.id.set_account_edt_position)
-    EditText mEdtPosition;
-    @BindView(R.id.set_account_edt_pass)
-    EditText mEdtPass;
-    @BindView(R.id.set_account_tv_sure)
+    @BindView(R.id.set_account_url_tv_sure)
     TextView mTvSure;
-    @BindView(R.id.set_account_tv_cancle)
+    @BindView(R.id.set_account_url_tv_cancle)
     TextView mTvCancle;
+    @BindView(R.id.set_account_url_edt_address)
+    EditText mEdtAddress;
+    @BindView(R.id.set_account_url_edt_main_tain)
+    EditText mEdtMainTain;
+    @BindView(R.id.set_account_url_edt_name)
+    EditText mEdtName;
+    @BindView(R.id.set_account_url_edt_tel)
+    EditText mEdtTel;
+    @BindView(R.id.set_account_url_edt_password)
+    EditText mEdtPassword;
     private String TAG = SetAccountActivity.class.getName();
 
     @Override
@@ -85,19 +83,18 @@ public class SetAccountActivity extends BaseActivity<SetAccountPresenter, IsetAc
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.set_account_tv_sure, R.id.set_account_tv_cancle})
+    @OnClick({R.id.set_account_url_tv_sure, R.id.set_account_url_tv_cancle})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.set_account_tv_sure:
-                String zhandianName = mEdtZhandianName.getText().toString();
-                String jigou = mEdtJigou.getText().toString();
-                String personName = mEdtPersonName.getText().toString();
-                String personPhone = mEdtPersonPhone.getText().toString();
-                String position = mEdtPosition.getText().toString();
-                String pass = mEdtPass.getText().toString();
-                getPresenter().setAccount(zhandianName,jigou,personName,personPhone,position,pass);
+            case R.id.set_account_url_tv_sure:
+                String address = mEdtAddress.getText().toString();
+                String maintain = mEdtMainTain.getText().toString();
+                String name = mEdtName.getText().toString();
+                String tel = mEdtTel.getText().toString();
+                String pass =  mEdtPassword.getText().toString();
+                getPresenter().setAccount(address,maintain,name,tel,pass);
                 break;
-            case R.id.set_account_tv_cancle:
+            case R.id.set_account_url_tv_cancle:
                 onBackPressed();
                 break;
         }

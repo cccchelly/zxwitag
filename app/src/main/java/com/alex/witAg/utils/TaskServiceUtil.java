@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import com.alex.witAg.App;
 import com.alex.witAg.service.CaptureService;
+import com.alex.witAg.service.LocationService;
 import com.alex.witAg.service.PostPicService;
 import com.alex.witAg.service.UpdateService;
 import com.alex.witAg.ui.activity.MainActivity;
@@ -21,6 +22,8 @@ public class TaskServiceUtil {
         App.getAppContext().startService(postIntent);
         /*Intent updateIntent = new Intent(App.getAppContext(), UpdateService.class);  //开启更新查询
         App.getAppContext().startService(updateIntent);*/
+        Intent locationIntent = new Intent(App.getAppContext(), LocationService.class);
+        App.getAppContext().startService(locationIntent);
     }
 
     public static void stopTasks(){
@@ -28,8 +31,10 @@ public class TaskServiceUtil {
         App.getAppContext().stopService(intent);
         Intent postIntent = new Intent(App.getAppContext(), PostPicService.class);   //关闭服务定时上传
         App.getAppContext().stopService(postIntent);
-     /*   Intent updateIntent = new Intent(App.getAppContext(), UpdateService.class);  //关闭更新查询
+     /*Intent updateIntent = new Intent(App.getAppContext(), UpdateService.class);  //关闭更新查询
         App.getAppContext().stopService(updateIntent);*/
+        Intent locationIntent = new Intent(App.getAppContext(), LocationService.class);
+        App.getAppContext().stopService(locationIntent);
     }
 
     public static  void resetTasks(){

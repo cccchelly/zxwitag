@@ -6,6 +6,7 @@ import com.alex.witAg.base.BasePresenter;
 import com.alex.witAg.base.BaseResponse;
 import com.alex.witAg.bean.HomeBean;
 import com.alex.witAg.http.AppDataManager;
+import com.alex.witAg.http.network.Net;
 import com.alex.witAg.presenter.viewImpl.IMainView;
 import com.alex.witAg.ui.activity.MainActivity;
 
@@ -23,7 +24,7 @@ public class MainPresenter extends BasePresenter<IMainView>{
 
     public void getHomePageData() {
         mView.showLoadingView("加载中...");
-        AppDataManager.getInstence(AppContants.URL_STR_BASE).getHomePageData()
+        AppDataManager.getInstence(Net.URL_KIND_COMPANY).getHomePageData()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<BaseResponse<HomeBean>>(mView) {

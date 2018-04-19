@@ -1,6 +1,7 @@
 package com.alex.witAg.presenter;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.alex.witAg.base.BaseObserver;
 import com.alex.witAg.base.BasePresenter;
@@ -27,9 +28,9 @@ public class TaskSettingPresenter extends BasePresenter<ITaskSettingView> {
     public void setTask(Date date,String time,boolean isLogo,int quality){
         int logoFlag = 0;
         if (isLogo){
-            logoFlag = 1;
+            logoFlag = -1;
         }else {
-            logoFlag = 2;
+            logoFlag = 1;
         }
         if (TextUtils.isEmpty(time)){
             ToastUtils.showToast("请输入间隔时间");
@@ -38,22 +39,26 @@ public class TaskSettingPresenter extends BasePresenter<ITaskSettingView> {
         }else/* if (TimeUtils.date2Millis(date)<=System.currentTimeMillis()){
             ToastUtils.showToast("所选时间已过期");
         }else*/ {
+            mView.showLoadingView("加载中...");
             AppDataManager.getInstence(Net.URL_KIND_COMPANY)
-                    .setPhotoTask(ShareUtil.getToken(),date.toString(),Integer.parseInt(time),logoFlag,quality)
+                    .setPhotoTask(ShareUtil.getToken(),TimeUtils.date2Millis(date)+"",Integer.parseInt(time),logoFlag,quality)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new BaseObserver<BaseResponse<PhotoSetResponseBean>>() {
                         @Override
                         public void onSuccess(BaseResponse<PhotoSetResponseBean> response) {
-
+                            Log.i("==settingPhotoTask==",response.toString());
+                            if (response.getCode()==BaseResponse.RESULT_CODE_SUCCESS){
+                                ShareUtil.saveTaskTime((int) (Double.parseDouble(time)*60*60*1000));
+                                ShareUtil.saveStartTaskTime(TimeUtils.date2Millis(date));
+                                ShareUtil.saveCaptureQuality(quality);
+                                TaskServiceUtil.resetTasks();
+                                ToastUtils.showToast("设置成功");
+                                getView().finishActivity();
+                            }
                         }
                     });
-            ShareUtil.saveTaskTime((int) (Double.parseDouble(time)*60*60*1000));
-            ShareUtil.saveStartTaskTime(TimeUtils.date2Millis(date));
-            ShareUtil.saveCaptureQuality(quality);
-            TaskServiceUtil.resetTasks();
-            ToastUtils.showToast("设置成功");
-            getView().finishActivity();
+
         }
     }
 }

@@ -10,8 +10,10 @@ import com.alex.witAg.bean.HomeBean;
 import com.alex.witAg.bean.PhotoDetailRecodeBean;
 import com.alex.witAg.bean.PicListBean;
 import com.alex.witAg.http.AppDataManager;
+import com.alex.witAg.http.network.Net;
 import com.alex.witAg.presenter.viewImpl.IHomeImgView;
 import com.alex.witAg.ui.fragment.HomeImgFragment;
+import com.alex.witAg.utils.ShareUtil;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -29,7 +31,7 @@ public class HomeImgPresenter extends BasePresenter<IHomeImgView> {
 
     public void getHomeImgList(String time){
         //time = "2018-03-14 00:00:00";
-        AppDataManager.getInstence(AppContants.URL_STR_BASE).getPicListData(time)
+        AppDataManager.getInstence(Net.URL_KIND_COMPANY).getPicListData(ShareUtil.getToken(),time)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<BaseResponse<PicListBean>>(mView) {
@@ -42,8 +44,8 @@ public class HomeImgPresenter extends BasePresenter<IHomeImgView> {
 
     }
      public void getRecode(String id){
-         AppDataManager.getInstence(AppContants.URL_STR_BASE)
-                 .getRecodeByPhoto(id)
+         AppDataManager.getInstence(Net.URL_KIND_COMPANY)
+                 .getRecodeByPhoto(id,ShareUtil.getToken())
                  .subscribeOn(Schedulers.io())
                  .observeOn(AndroidSchedulers.mainThread())
                  .subscribe(new BaseObserver<BaseResponse<PhotoDetailRecodeBean>>() {

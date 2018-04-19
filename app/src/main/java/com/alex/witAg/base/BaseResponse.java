@@ -9,6 +9,9 @@ package com.alex.witAg.base;
 public class BaseResponse<DataType> {
 
     public static final int RESULT_CODE_SUCCESS = 0;
+    public static final int RESULT_CODE_DEVICE_UNLOGIN = 10; ////未登录(token无效)
+    public static final int RESULT_CODE_DEVICE_UNBIND = 12;  //设备未绑定
+    public static final int RESULT_CODE_ERROR = 11;
     public static final int RESULT_CODE_TOKEN_EXPIRED = 401;
 
     /**

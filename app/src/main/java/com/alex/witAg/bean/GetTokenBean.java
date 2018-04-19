@@ -5,4 +5,25 @@ package com.alex.witAg.bean;
  */
 
 public class GetTokenBean {
+
+    @Override
+    public String toString() {
+        return "GetTokenBean{" +
+                "token='" + token + '\'' +
+                '}';
+    }
+
+    /**
+     * token : 8c5d866a-e116-4ec3-a18f-d0f9595502f9
+     */
+
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 }

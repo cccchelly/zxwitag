@@ -1,9 +1,16 @@
 package com.alex.witAg.base;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.alex.witAg.App;
+import com.alex.witAg.bean.GetTokenBean;
+import com.alex.witAg.http.AppDataManager;
+import com.alex.witAg.http.network.Net;
+import com.alex.witAg.utils.AppMsgUtil;
+import com.alex.witAg.utils.ShareUtil;
+import com.alex.witAg.utils.ToastUtils;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.MalformedJsonException;
 import com.orhanobut.logger.Logger;
@@ -14,8 +21,10 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
 /**
@@ -52,6 +61,16 @@ public abstract class BaseObserver<T extends BaseResponse> implements Observer<T
             case BaseResponse.RESULT_CODE_SUCCESS:
                 onSuccess(response);
                 break;
+            case BaseResponse.RESULT_CODE_DEVICE_UNLOGIN:
+                onDataFailure(response);
+                Login();
+                break;
+            case BaseResponse.RESULT_CODE_DEVICE_UNBIND:
+                onSuccess(response);
+                    break;
+            case BaseResponse.RESULT_CODE_ERROR:
+                onDataFailure(response);
+                 break;
             case BaseResponse.RESULT_CODE_TOKEN_EXPIRED:
                 break;
             default:
@@ -86,6 +105,7 @@ public abstract class BaseObserver<T extends BaseResponse> implements Observer<T
     protected void onDataFailure(T response) {
         String msg = response.getMsg();
         Logger.w("request data but get failure:" + msg);
+        //ToastUtils.showToast("请求错误");
         if (!TextUtils.isEmpty(msg)) {
             //            mBaseMvpView.showException(response.getMsg());
             Toast.makeText(App.getAppContext(), msg, Toast.LENGTH_SHORT).show();
@@ -93,6 +113,26 @@ public abstract class BaseObserver<T extends BaseResponse> implements Observer<T
             //            mBaseMvpView.showException("未知错误");
             Toast.makeText(App.getAppContext(), "未知错误", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    protected void Login(){
+        //获取token
+        AppDataManager.getInstence(Net.URL_KIND_BASE)
+                .getToken(AppMsgUtil.getIMEI(App.getAppContext()))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver<BaseResponse<GetTokenBean>>() {
+                    @Override
+                    public void onSuccess(BaseResponse<GetTokenBean> response) {
+                        Log.i("==gettoken==",response.toString());
+                        if (response.getCode()==BaseResponse.RESULT_CODE_SUCCESS){
+                            //得到token
+                            ShareUtil.saveToken(response.getData().getToken());
+                        }else if (response.getCode()>0){
+                            //ToastUtils.showToast("获取token错误："+response.getMsg());
+                        }
+                    }
+                });
     }
 
     /**
